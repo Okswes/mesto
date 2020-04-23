@@ -3,7 +3,13 @@
 .header{
     max-width: 882px;
     border-bottom: 1px solid rgba(229, 229, 229, 0.7);
-    margin: 40px auto 0; 
+    margin: 0 auto;
+    padding-top: 40px; 
 }
 
+@media screen and (max-width: 885px) {
+    .header{
+        margin: 40px 5% auto;
+    }
+}
 

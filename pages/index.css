@@ -11,8 +11,3 @@
 @import url(../blocks/add-button/add-button.css);
 @import url(../blocks/close-button/close-button.css);
 @import url(../blocks/edit-button/edit-button.css);
-
-
-body{
-    background-color: #000000;
-}

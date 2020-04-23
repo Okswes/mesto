@@ -2,6 +2,7 @@
 @import url(./__info/profile__info.css);
 @import url(./__subtitle/profile__subtitle.css);
 @import url(./__title/profile__title.css);
+@import url(./__info-grid/profile__info-grid.css);
 
 
 .profile{
@@ -16,7 +17,13 @@
             align-items: center;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 910px) {
+    .profile {
+        margin: 40px 5% auto;
+    }
+}
+
+@media screen and (max-width: 617px) {
     .profile {
         flex-direction: column;
     }

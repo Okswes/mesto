@@ -2,6 +2,7 @@
 @import url(./__picture/elements__picture.css);
 @import url(./__text/elements__text.css);
 @import url(./__textarea/elements__textarea.css);
+@import url(./__like/elements__like.css);
 
 
 .elements{
@@ -16,6 +17,7 @@
 
 @media screen and (max-width: 940px) {
     .elements {
+        margin: 52px 5% auto;    
         grid-template-columns: repeat(2, auto);
         grid-template-rows: repeat(3, auto);
     }
