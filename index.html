@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./pages/index.css">
-
     <title>Mesto</title>
 </head>
 
@@ -19,8 +18,28 @@
                     <input class="popup__item popup__item_el_prof" type="text">
                     <button class="popup__button" type="submit">Сохранить</button>
                 </fieldset>
-                <button class="close-button"></button>
+                <button class="close-button" type="reset"></button>
             </form>
+        </div>
+
+        <div class="popup popup_type_add">
+            <form class="popup__container">
+                <fieldset class="popup__user-info">
+                    <h3 class="popup__title">Новое место</h3>
+                    <input class="popup__item popup__item_el_place" type="text" placeholder="Название">
+                    <input class="popup__item popup__item_el_link" type="text" placeholder="Ссылка на картинку">
+                    <button class="popup__button" type="submit">Создать</button>
+                </fieldset>
+                <button class="close-button" type="reset"></button>
+            </form>
+        </div>
+
+        <div class="popup popup_type_picture">
+            <div class="popup__picture-container">
+                <img class="popup__full-picture">
+                <p class="popup__picture-title"></p>
+                <button class="close-button" type="reset"></button>
+            </div>
         </div>
 
         <header class="header">
@@ -40,59 +59,24 @@
                 <button class="add-button"></button>
             </section>
             <section class="elements">
-                <div class="elements__item">
-                    <img class="elements__picture" src="./images/stockholm.jpg" alt="Стокгольм">
-                    <div class="elements__textarea">
-                        <p class="elements__text">Стокгольм</p>
-                        <button class="elements__like"></button>
-                    </div>
-                </div>
 
-                <div class="elements__item">
-                    <img class="elements__picture" src="./images/budapest.jpg" alt="Будапешт">
-                    <div class="elements__textarea">
-                        <p class="elements__text">Будапешт</p>
-                        <button class="elements__like"></button>
-                    </div>
-                </div>
-
-                <div class="elements__item">
-                    <img class="elements__picture" src="./images/vienna.jpg" alt="Вена">
-                    <div class="elements__textarea">
-                        <p class="elements__text">Вена</p>
-                        <button class="elements__like"></button>
-                    </div>
-                </div>
-
-                <div class="elements__item">
-                    <img class="elements__picture" src="./images/berlin.jpg" alt="Берлин">
-                    <div class="elements__textarea">
-                        <p class="elements__text">Берлин</p>
-                        <button class="elements__like"></button>
-                    </div>
-                </div>
-
-                <div class="elements__item">
-                    <img class="elements__picture" src="./images/helsinki.jpg" alt="Хельсинки">
-                    <div class="elements__textarea">
-                        <p class="elements__text">Хельсинки</p>
-                        <button class="elements__like"></button>
-                    </div>
-                </div>
-
-                <div class="elements__item">
-                    <img class="elements__picture" src="./images/prague.jpg" alt="Прага">
-                    <div class="elements__textarea">
-                        <p class="elements__text">Прага</p>
-                        <button class="elements__like"></button>
-                    </div>
-                </div>
             </section>
         </main>
 
         <footer class="footer">
             <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
         </footer>
+
+        <template id="card_template">
+            <div class="elements__item">
+                <img class="elements__picture">
+                <button class="elements__delete"></button>
+                <div class="elements__textarea">
+                    <p class="elements__text"></p>
+                    <button class="elements__like"></button>
+                </div>
+            </div>
+        </template>
     </div>
     <script src="./scripts/script.js"></script>
 </body>

@@ -3,6 +3,7 @@
 @import url(./__text/elements__text.css);
 @import url(./__textarea/elements__textarea.css);
 @import url(./__like/elements__like.css);
+@import url(./__delete/elements__delete.css);
 
 
 .elements{
