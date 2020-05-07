@@ -10,6 +10,31 @@
 
 <body>
     <div class="page">
+        <header class="header">
+            <img src="./images/logo.svg" class="header__logo" alt="Место">
+        </header>
+
+        <main class="content">
+            <section class="profile">
+                <img src="./images/profile_pic.jpg" class="profile__avatar" alt="Жак-Ив Кусто">
+                <div class="profile__info">
+                    <div class="profile__info-grid">
+                        <h2 class="profile__title">Жак-Ив Кусто</h2>
+                        <button class="edit-button"></button>
+                    </div>
+                    <p class="profile__subtitle">Исследователь океана</p>
+                </div>
+                <button class="add-button"></button>
+            </section>
+
+            <section class="place-list">
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
+        </footer>
+
         <div class="popup">
             <form class="popup__container">
                 <fieldset class="popup__user-info">
@@ -41,31 +66,6 @@
                 <button class="close-button" type="reset"></button>
             </div>
         </div>
-
-        <header class="header">
-            <img src="./images/logo.svg" class="header__logo" alt="Место">
-        </header>
-
-        <main class="content">
-            <section class="profile">
-                <img src="./images/profile_pic.jpg" class="profile__avatar" alt="Жак-Ив Кусто">
-                <div class="profile__info">
-                    <div class="profile__info-grid">
-                        <h2 class="profile__title">Жак-Ив Кусто</h2>
-                        <button class="edit-button"></button>
-                    </div>
-                    <p class="profile__subtitle">Исследователь океана</p>
-                </div>
-                <button class="add-button"></button>
-            </section>
-
-            <section class="place-list">
-            </section>
-        </main>
-
-        <footer class="footer">
-            <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
-        </footer>
 
         <template id="card_template">
             <div class="place">
