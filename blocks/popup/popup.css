@@ -9,6 +9,8 @@
 @import url(./__picture-title/popup__picture-title.css);
 
 .popup{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     width: 100%;
     height: 100%;
@@ -19,6 +21,8 @@
     z-index: 2;
     visibility: hidden;
     opacity: 0;
+    -webkit-transition: visibility .5s, opacity .5s linear;
+    -o-transition: visibility .5s, opacity .5s linear;
     transition: visibility .5s, opacity .5s linear;
 }
 

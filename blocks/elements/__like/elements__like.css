@@ -6,6 +6,7 @@
     height: 19px;
     cursor: pointer;
     background: url(../../../images/like.svg);
+    background-repeat: no-repeat;
 }
 
 .elements__like:hover{
@@ -14,4 +15,5 @@
 
 .elements__like_active{
     background: url(../../../images/liked.svg);
+    background-repeat: no-repeat;
 }
