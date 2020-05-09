@@ -62,43 +62,35 @@ function likedHandler(evt) {
     evt.target.classList.toggle('place__like_active');
 }
 
-function deleteHandler(evt) {
-    evt.target.removeEventListener('click', likedHandler);
-    evt.target.removeEventListener('click', deleteHandler);
-    evt.target.removeEventListener('click', fullsizeHandler);
-    evt.target.closest('.place').remove();
-}
-
 function fullsizeHandler(evt) {
     pictureForm.classList.add('popup_opened');
     popupImg.src = evt.target.src;
     popupTitle.textContent = evt.target.alt;
 }
 
-function cardsListeners(item) {
-    item.querySelector('.place__like').addEventListener('click', likedHandler);
-    item.querySelector('.place__delete').addEventListener('click', deleteHandler);
-    item.querySelector('.place__picture').addEventListener('click', fullsizeHandler);
+function deleteHandler(evt) {
+    evt.target.closest('.place').querySelector('.place__like').removeEventListener('click', likedHandler);
+    evt.target.closest('.place').querySelector('.place__delete').removeEventListener('click', deleteHandler);
+    evt.target.closest('.place').querySelector('.place__picture').removeEventListener('click', fullsizeHandler);
+    evt.target.closest('.place').remove();
 }
 
-function cardCreator(name,link){
+function cardCreator(name, link) {
     const newCard = cardTemplate.cloneNode(true);
     newCard.querySelector('.place__picture').src = link;
     newCard.querySelector('.place__text').textContent = name;
     newCard.querySelector('.place__picture').alt = name;
+    newCard.querySelector('.place__like').addEventListener('click', likedHandler);
+    newCard.querySelector('.place__delete').addEventListener('click', deleteHandler);
+    newCard.querySelector('.place__picture').addEventListener('click', fullsizeHandler);
     return newCard;
 }
 
-function cardRender(card, position){
-    cardsListeners(card);
-    if (position === 'first')
-    {cardsField.append(card);
-    } else if(position === 'last'){
-        cardsField.prepend(card);
-    }
+function cardRender(card) {
+    cardsField.prepend(card);
 }
 
-function openCloseToggle(elemen) {
+function togglePopup(elemen) {
     elemen.target.closest('.popup').classList.toggle('popup_opened');
 }
 
@@ -106,32 +98,30 @@ function formSubmitHandler(evt) {
     evt.preventDefault();
     profTitle.textContent = nameInput.value;
     profSubt.textContent = jobInput.value;
-    openCloseToggle(evt);
+    togglePopup(evt);
 }
 
 function addformSubmitHandler(evt) {
     evt.preventDefault();
     if (linkInput.value === '' && placeInput.value === '') {
-        openCloseToggle(evt);
+        return addformSubmitHandler;
     }
-    else {
-        const card = cardCreator(placeInput.value, linkInput.value);
-        cardRender(card, 'last');
-        openCloseToggle(evt);
-    }
+    const card = cardCreator(placeInput.value, linkInput.value);
+    cardRender(card);
+    togglePopup(evt);
 }
 
 
 function closeButtonsCall() {
     closeBtn.forEach(function (buttons) {
-        buttons.addEventListener('click', openCloseToggle);
+        buttons.addEventListener('click', togglePopup);
     })
 }
 
 
 initialCards.forEach(function (i) {
-    const card = cardCreator(i.name,i.link);
-    cardRender(card, 'first');
+    const card = cardCreator(i.name, i.link);
+    cardRender(card);
 })
 
 closeButtonsCall();
