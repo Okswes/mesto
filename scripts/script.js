@@ -69,24 +69,27 @@ function fullsizeHandler(evt) {
 }
 
 function deleteHandler(evt) {
-    evt.target.closest('.place').querySelector('.place__like').removeEventListener('click', likedHandler);
-    evt.target.closest('.place').querySelector('.place__delete').removeEventListener('click', deleteHandler);
-    evt.target.closest('.place').querySelector('.place__picture').removeEventListener('click', fullsizeHandler);
-    evt.target.closest('.place').remove();
+    const item = evt.target.closest('.place');
+    item.querySelector('.place__like').removeEventListener('click', likedHandler);
+    item.querySelector('.place__delete').removeEventListener('click', deleteHandler);
+    item.querySelector('.place__picture').removeEventListener('click', fullsizeHandler);
+    item.remove();
 }
 
 function cardCreator(name, link) {
     const newCard = cardTemplate.cloneNode(true);
-    newCard.querySelector('.place__picture').src = link;
-    newCard.querySelector('.place__text').textContent = name;
-    newCard.querySelector('.place__picture').alt = name;
+    const item = newCard.querySelector('.place__picture');
+    item.src = link;
+    item.alt = name;
+    item.addEventListener('click', fullsizeHandler);
+    newCard.querySelector('.place__text').textContent = name;    
     newCard.querySelector('.place__like').addEventListener('click', likedHandler);
     newCard.querySelector('.place__delete').addEventListener('click', deleteHandler);
-    newCard.querySelector('.place__picture').addEventListener('click', fullsizeHandler);
     return newCard;
 }
 
-function cardRender(card) {
+function cardRender(name, link) {
+    const card = cardCreator(name, link);
     cardsField.prepend(card);
 }
 
@@ -104,10 +107,9 @@ function formSubmitHandler(evt) {
 function addformSubmitHandler(evt) {
     evt.preventDefault();
     if (linkInput.value === '' && placeInput.value === '') {
-        return addformSubmitHandler;
+        return;
     }
-    const card = cardCreator(placeInput.value, linkInput.value);
-    cardRender(card);
+    cardRender(placeInput.value, linkInput.value);
     togglePopup(evt);
 }
 
@@ -119,9 +121,8 @@ function closeButtonsCall() {
 }
 
 
-initialCards.forEach(function (i) {
-    const card = cardCreator(i.name, i.link);
-    cardRender(card);
+initialCards.forEach( (i) => {
+    cardRender(i.name, i.link);
 })
 
 closeButtonsCall();

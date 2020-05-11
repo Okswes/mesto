@@ -4,7 +4,8 @@
     position: relative;
     max-width: 430px;
     max-height: 380px;
-    margin: 70px auto;
+    margin: auto;
+    padding-bottom: 35px;
     background-color: #ffffff;
     color: #000000;
     border-radius: 10px;
