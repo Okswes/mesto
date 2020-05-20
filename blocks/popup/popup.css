@@ -7,6 +7,10 @@
 @import url(./__picture-container/popup__picture-container.css);
 @import url(./__full-picture/popup__full-picture.css);
 @import url(./__picture-title/popup__picture-title.css);
+@import url(./__item/_type/popup__item_type_error.css);
+@import url(./__error/popup__error.css);
+@import url(./__error/popup__error_active.css);
+@import url(./__button/_inactive/popup__button_inactive.css);
 
 .popup{
     display: -webkit-box;

@@ -1,3 +1,5 @@
+@import url(./_type/popup__item_type_error.css);
+
 .popup__item{
     border: 0;
     width: 100%;

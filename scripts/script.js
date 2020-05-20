@@ -47,7 +47,11 @@ const initialCards = [
 
 
 function editHandler() {
-    form.classList.add('popup_opened');
+    form.classList.toggle('popup_opened');
+    document.addEventListener('keydown', closeEsc,  {once: true});
+    const submitButton = form.querySelector('.popup__button');
+    submitButton.removeAttribute('disabled');
+    submitButton.classList.remove('popup__button_inactive');
     nameInput.value = profTitle.textContent;
     jobInput.value = profSubt.textContent;
 }
@@ -56,6 +60,7 @@ function addHandler() {
     placeInput.value = '';
     linkInput.value = '';
     addForm.classList.add('popup_opened');
+    document.addEventListener('keydown', closeEsc,  {once: true});
 }
 
 function likedHandler(evt) {
@@ -64,6 +69,7 @@ function likedHandler(evt) {
 
 function fullsizeHandler(evt) {
     pictureForm.classList.add('popup_opened');
+    document.addEventListener('keydown', closeEsc,  {once: true});
     popupImg.src = evt.target.src;
     popupTitle.textContent = evt.target.alt;
 }
@@ -82,7 +88,7 @@ function cardCreator(name, link) {
     item.src = link;
     item.alt = name;
     item.addEventListener('click', fullsizeHandler);
-    newCard.querySelector('.place__text').textContent = name;    
+    newCard.querySelector('.place__text').textContent = name;
     newCard.querySelector('.place__like').addEventListener('click', likedHandler);
     newCard.querySelector('.place__delete').addEventListener('click', deleteHandler);
     return newCard;
@@ -93,8 +99,29 @@ function cardRender(name, link) {
     cardsField.prepend(card);
 }
 
-function togglePopup(elemen) {
-    elemen.target.closest('.popup').classList.toggle('popup_opened');
+
+function resetErrors(input, popup) {
+    input.forEach(elem => {
+        const errorClass = document.querySelector(`#${elem.id}-error`);
+        elem.classList.remove('popup__item_type_error');
+        errorClass.classList.remove('popup__error_active');
+        errorClass.textContent = '';
+    });
+    const submitButton = popup.querySelector('.popup__button');
+    submitButton.setAttribute('disabled', true);
+    submitButton.classList.add('popup__button_inactive');
+};
+
+
+function togglePopup(evt) {
+    document.addEventListener('keydown', closeEsc);
+    const elem = evt.target.closest('.popup');
+    if (!elem.classList.contains('popup_type_picture'))
+    {
+        const inputList = Array.from(elem.querySelectorAll('.popup__item'));
+        resetErrors(inputList, elem);
+    }
+    elem.classList.toggle('popup_opened');
 }
 
 function formSubmitHandler(evt) {
@@ -120,13 +147,29 @@ function closeButtonsCall() {
     })
 }
 
+function overlayClose(evt) {
+    if (evt.target.classList.contains('popup')) {
+        evt.target.classList.remove('popup_opened');
+    }
+}
 
-initialCards.forEach( (i) => {
+function closeEsc (evt) {
+    if (evt.key === 'Escape') {
+      document.querySelector('.popup_opened').classList.remove('popup_opened');
+    };
+  }
+    
+
+initialCards.forEach((i) => {
     cardRender(i.name, i.link);
 })
+
 
 closeButtonsCall();
 editBtn.addEventListener('click', editHandler);
 addBtn.addEventListener('click', addHandler);
 form.addEventListener('submit', formSubmitHandler);
+form.addEventListener('click', overlayClose);
 addForm.addEventListener('submit', addformSubmitHandler);
+addForm.addEventListener('click', overlayClose);
+pictureForm.addEventListener('click', overlayClose);
