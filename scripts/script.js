@@ -18,6 +18,9 @@ const popupTitle = document.querySelector('.popup__picture-title');
 const cardsField = document.querySelector('.place-list');
 const cardTemplate = document.querySelector('#card_template').content;
 const submitButton = form.querySelector('.popup__button');
+const placeErrorField = addForm.querySelector('#place-input-error');
+const urlErrorField = addForm.querySelector('#url-input-error');
+
 
 const initialCards = [
     {
@@ -63,7 +66,11 @@ function editHandler() {
 function addHandler() {
     popupOpenHandler(addForm);
     placeInput.value = '';
-    linkInput.value = '';    
+    linkInput.value = '';
+    placeErrorField.textContent = placeInput.validationMessage;
+    placeErrorField.classList.toggle('popup__error_active');
+    urlErrorField.textContent = linkInput.validationMessage;
+    urlErrorField.classList.toggle('popup__error_active');
 }
 
 function likedHandler(evt) {
