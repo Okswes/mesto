@@ -45,7 +45,7 @@
                     <span class="popup__error" id="prof-input-error"></span>
                     <button class="popup__button" type="submit">Сохранить</button>    
                 </fieldset>                                
-                <button class="close-button" type="reset"></button>
+                <button class="close-button" id="close-button-profile" type="reset"></button>
             </form>
         </div>
 
@@ -59,7 +59,7 @@
                     <span class="popup__error" id="url-input-error"></span>
                     <button class="popup__button" type="submit">Создать</button>
                 </fieldset>                
-                <button class="close-button" type="reset"></button>
+                <button class="close-button" id="close-button-addform" type="reset"></button>
             </form>
         </div>
 
@@ -67,7 +67,7 @@
             <div class="popup__picture-container">
                 <img class="popup__full-picture">
                 <p class="popup__picture-title"></p>
-                <button class="close-button" type="reset"></button>
+                <button class="close-button" id="close-button-picture" type="reset"></button>
             </div>
         </div>
 
@@ -83,9 +83,10 @@
         </template>
 
     </div>
+    <script type="module" src="./scripts/index.js"></script>   
     <script type="module" src="./scripts/Card.js"></script> 
     <script type="module" src="./scripts/FormValidator.js"></script> 
-    <script type="module" src="./scripts/index.js"></script>    
+     
 </body>
 
 </html>

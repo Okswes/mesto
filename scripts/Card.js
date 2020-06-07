@@ -1,7 +1,10 @@
+import { popupOpenHandler, popupImg, popupTitle, pictureForm } from "./index.js";
+
 export class Card {
     constructor(data, selector) {
         this._name = data.name;
         this._link = data.link;
+        this._cardSelector = selector;
     }
 
     _getTemplate() {
@@ -13,9 +16,9 @@ export class Card {
     }
 
     _setEventListeners() {
-        this._element.querySelector('.place__like').addEventListener('click', () => { this._likedHandler() });
-        this._element.querySelector('.place__delete').addEventListener('click', () => { this._deleteHandler() });
-        this._element.querySelector('.place__picture').addEventListener('click', () => { this._fullsizeHandler() });
+        this._element.querySelector('.place__like').addEventListener('click', () => { this._likedHandler(); });
+        this._element.querySelector('.place__delete').addEventListener('click', () => { this._deleteHandler(); });
+        this._element.querySelector('.place__picture').addEventListener('click', () => { this._fullsizeHandler(); });
     }
 
     _likedHandler() {
@@ -25,7 +28,6 @@ export class Card {
     _deleteHandler() {
         this._element.remove();
     }
-
 
     _fullsizeHandler() {
         popupOpenHandler(pictureForm);
@@ -37,7 +39,6 @@ export class Card {
         this._element = this._getTemplate();
         this._setEventListeners();
         this._element.querySelector('.place__picture').src = this._link;
-        this._element.querySelector('.place__text').textContent = this._name;
         this._element.querySelector('.place__text').textContent = this._name;
         return this._element;
     }
