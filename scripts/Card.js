@@ -1,4 +1,19 @@
-import { popupOpenHandler, popupImg, popupTitle, pictureForm } from "./index.js";
+const pictureForm = document.querySelector('.popup_type_picture');
+const popupImg = document.querySelector('.popup__full-picture');
+const popupTitle = document.querySelector('.popup__picture-title');
+
+function popupOpenHandler(popup){
+    popup.classList.add('popup_opened');
+    document.addEventListener('keydown', escCloseHandler);
+}
+
+function escCloseHandler (evt) {
+    if (evt.key === 'Escape') {
+      document.querySelector('.popup_opened').classList.remove('popup_opened');
+      document.removeEventListener('keydown', escCloseHandler);
+    }
+}
+
 
 export class Card {
     constructor(data, selector) {
@@ -8,7 +23,7 @@ export class Card {
     }
 
     _getTemplate() {
-        const cardElement = document.getElementById('card_template')
+        const cardElement = document.getElementById(this._cardSelector)
             .content
             .querySelector('.place')
             .cloneNode(true);
@@ -33,7 +48,7 @@ export class Card {
         popupOpenHandler(pictureForm);
         popupImg.src = this._link;
         popupTitle.textContent = this._name;
-    }
+    }    
 
     generateCard() {
         this._element = this._getTemplate();

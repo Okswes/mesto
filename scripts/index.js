@@ -67,7 +67,7 @@ function escCloseHandler (evt) {
     }
 }
 
-export function popupOpenHandler(popup){
+function popupOpenHandler(popup){
     popup.classList.add('popup_opened');
     document.addEventListener('keydown', escCloseHandler);
 }
@@ -95,7 +95,7 @@ function renderCard(name, link) {
     const item = {};
     item.name = name;
     item.link = link;
-    const card = new Card(item);
+    const card = new Card(item, 'card_template');
     document.querySelector('.place-list').prepend(card.generateCard());
 }
 
@@ -148,7 +148,7 @@ function closeOnClickHandler(evt) {
 
 
 initialCards.forEach((item) => {
-    const card = new Card(item);
+    const card = new Card(item, 'card_template');
     const cardElement = card.generateCard();
     cardsField.prepend(cardElement);
 });
