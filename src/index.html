@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Mesto</title>
 </head>
 
@@ -35,13 +34,13 @@
             <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
         </footer>
 
-        <div class="popup">
+        <div class="popup popup_type_info">
             <form class="popup__container" novalidate>
                 <fieldset class="popup__user-info">
                     <h3 class="popup__title">Редактировать профиль</h3>
-                    <input class="popup__item popup__item_el_name" id="name-input" type="text" required minlength="2" maxlength="40" pattern="[A-Za-zА-ЯЁа-яё -]{1,}">
+                    <input class="popup__item popup__item_el_name" name="author" id="name-input" type="text" required minlength="2" maxlength="40" pattern="[A-Za-zА-ЯЁа-яё -]{1,}">
                     <span class="popup__error" id="name-input-error"></span>
-                    <input class="popup__item popup__item_el_prof" id="prof-input" type="text" required minlength="2" maxlength="200">
+                    <input class="popup__item popup__item_el_prof" name="job" id="prof-input" type="text" required minlength="2" maxlength="200">
                     <span class="popup__error" id="prof-input-error"></span>
                     <button class="popup__button" type="submit">Сохранить</button>    
                 </fieldset>                                
@@ -53,9 +52,9 @@
             <form class="popup__container" novalidate>
                 <fieldset class="popup__user-info">
                     <h3 class="popup__title">Новое место</h3>
-                    <input class="popup__item popup__item_el_place" id="place-input" type="text" placeholder="Название" required minlength="1" maxlength="30">
+                    <input class="popup__item popup__item_el_place" name="name" id="place-input" type="text" placeholder="Название" required minlength="1" maxlength="30">
                     <span class="popup__error" id="place-input-error"></span>
-                    <input class="popup__item popup__item_el_link" id="url-input" type="url" placeholder="Ссылка на картинку" required>
+                    <input class="popup__item popup__item_el_link" name="link" id="url-input" type="url" placeholder="Ссылка на картинку" required>
                     <span class="popup__error" id="url-input-error"></span>
                     <button class="popup__button" type="submit">Создать</button>
                 </fieldset>                
@@ -82,10 +81,7 @@
             </div>
         </template>
 
-    </div>
-    <script type="module" src="./scripts/index.js"></script>   
-    <script type="module" src="./scripts/Card.js"></script> 
-    <script type="module" src="./scripts/FormValidator.js"></script> 
+    </div>   
      
 </body>
 
