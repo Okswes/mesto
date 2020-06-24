@@ -31,17 +31,23 @@ const openFormInfo = new PopupWithForm({formSubmit: (formData) => {
             openFormInfo.close();
         }
 }, form);
+openFormInfo.setEventListeners();
 
+
+//Функция открытия фото
+function openImagePopup(card){
+    const fullSizePopup = new PopupWithImage(pictureForm);
+    fullSizePopup.setEventListeners();
+    fullSizePopup.open(card);
+}
 
 //Попап с добавлением карточек
 const photoCard = new PopupWithForm({formSubmit: (formData)=>{
-    const card = new Card(formData, 'card_template', () => {
-        const fullSizePopup = new PopupWithImage(pictureForm);
-        fullSizePopup.open(formData);
-    })
+    const card = new Card(formData, 'card_template', () => openImagePopup(formData));
     const cardElement = card.generateCard();
     cardList.setItem(cardElement);
 }}, addForm);
+photoCard.setEventListeners();
 
 
 //Открытие попапа с изменением имени и профессии
@@ -64,14 +70,11 @@ function addPhotoCardHandler() {
     urlErrorField.classList.toggle('popup__error_active');
 }
 
+
 //Добавление начальных карточек
 const cardList = new Section({
     items: initialCards, renderer: (item) => {
-        const card = new Card(item, 'card_template', () => {
-            const fullSizePopup = new PopupWithImage(pictureForm);
-            fullSizePopup.open(item);
-        }
-        );
+        const card = new Card(item, 'card_template', () => openImagePopup(item));
         const cardElement = card.generateCard();
         cardList.setItem(cardElement);
     }
