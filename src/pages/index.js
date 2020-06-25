@@ -34,16 +34,18 @@ const openFormInfo = new PopupWithForm({formSubmit: (formData) => {
 openFormInfo.setEventListeners();
 
 
+//Попап с фулсайз картинкой
+const fullSizePopup = new PopupWithImage(pictureForm);
+fullSizePopup.setEventListeners();
+
 //Функция открытия фото
 function openImagePopup(card){
-    const fullSizePopup = new PopupWithImage(pictureForm);
-    fullSizePopup.setEventListeners();
     fullSizePopup.open(card);
 }
 
 //Попап с добавлением карточек
 const photoCard = new PopupWithForm({formSubmit: (formData)=>{
-    const card = new Card(formData, 'card_template', () => openImagePopup(formData));
+    const card = new Card(formData, 'card_template', openImagePopup);
     const cardElement = card.generateCard();
     cardList.setItem(cardElement);
 }}, addForm);
@@ -74,7 +76,7 @@ function addPhotoCardHandler() {
 //Добавление начальных карточек
 const cardList = new Section({
     items: initialCards, renderer: (item) => {
-        const card = new Card(item, 'card_template', () => openImagePopup(item));
+        const card = new Card(item, 'card_template', openImagePopup);
         const cardElement = card.generateCard();
         cardList.setItem(cardElement);
     }

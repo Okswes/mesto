@@ -3,7 +3,7 @@ export class Card {
         this._name = data.name;
         this._link = data.link;
         this._cardSelector = selector;
-        this._handleCardClick = handleCardClick;
+        this._handleCardClick = () => handleCardClick(data);
     }
 
     _getTemplate() {
