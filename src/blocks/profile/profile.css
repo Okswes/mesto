@@ -3,12 +3,8 @@
 @import url(./__subtitle/profile__subtitle.css);
 @import url(./__title/profile__title.css);
 @import url(./__info-grid/profile__info-grid.css);
-<<<<<<< HEAD
 @import url(./__edit-icon/profile__edit-icon.css);
 @import url(./__avatar-block/profile__avatar-block.css);
-=======
-
->>>>>>> 706fcf060d2c76fde55dcad55a6c1e2ebd17cdf5
 
 .profile{
     max-width: 882px;
@@ -16,11 +12,6 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-<<<<<<< HEAD
-
-=======
-    
->>>>>>> 706fcf060d2c76fde55dcad55a6c1e2ebd17cdf5
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;

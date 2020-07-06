@@ -3,12 +3,8 @@
 @import url(./__picture/place__picture.css);
 @import url(./__text/place__text.css);
 @import url(./__textarea/place__textarea.css);
-<<<<<<< HEAD
 @import url(./__likecount/place__likecount.css);
 @import url(./__likesform/place__likesform.css);
-=======
-
->>>>>>> 706fcf060d2c76fde55dcad55a6c1e2ebd17cdf5
 
 .place{
     position: relative;

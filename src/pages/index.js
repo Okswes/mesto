@@ -2,10 +2,10 @@ import '../pages/index.css';
 import { FormValidator } from '../scripts/components/FormValidator.js';
 import { Section } from '../scripts/components/Section.js';
 import { Card } from '../scripts/components/Card.js';
+import { Popup } from '../scripts/components/Popup.js';
 import { PopupWithForm } from '../scripts/components/PopupWithForm.js';
 import { PopupWithImage } from '../scripts/components/PopupWithImage.js';
 import { UserInfo } from '../scripts/components/UserInfo.js';
-<<<<<<< HEAD
 import { Api } from '../scripts/components/Api.js';
 import {
     editBtn,
@@ -16,18 +16,10 @@ import {
     avatarForm,
     pictureForm,
     deleteForm,
-=======
-import { editBtn,
-    addBtn,
-    form,
-    addForm,
-    pictureForm,
->>>>>>> 706fcf060d2c76fde55dcad55a6c1e2ebd17cdf5
     nameInput,
     jobInput,
     placeInput,
     linkInput,
-<<<<<<< HEAD
     avatarInput,
     profTitle,
     profSubt,
@@ -53,9 +45,7 @@ const api = new Api({
 //Вывод первоначальных карточек
 const cardList = new Section({
     renderer: (item) => {
-        const card = new Card(item, () => api.putLike(item._id), () => api.deleteLike(item._id), 'card_template', openImagePopup, (item) => {
-            deleteId = item;
-            deleteCardForm.open();});
+        const card = new Card(item, () => api.putLike(item._id), () => api.deleteLike(item._id), 'card_template', openImagePopup, () => deleteCardForm.submit(item._id));
         const cardElement = card.generateCard();
         cardList.setItem(cardElement);
     }
@@ -80,20 +70,10 @@ api.getUserInfo()
     .catch((err) => {
         console.log(err);
     });
-=======
-    profTitle,
-    profSubt,
-    cardsField,
-    placeErrorField,
-    urlErrorField,
-    formConfig,
-    initialCards } from "../scripts/utils/constants.js";
->>>>>>> 706fcf060d2c76fde55dcad55a6c1e2ebd17cdf5
 
 
 
 //Попап с данными пользователя
-<<<<<<< HEAD
 const profileCard = new UserInfo({ name: profTitle, prof: profSubt });
 const openFormInfo = new PopupWithForm({
     formSubmit: (formData) => {
@@ -109,13 +89,6 @@ const openFormInfo = new PopupWithForm({
         });        
         openFormInfo.close();
     }
-=======
-const profileCard = new UserInfo ({name: profTitle, prof: profSubt});
-const openFormInfo = new PopupWithForm({formSubmit: (formData) => {
-            profileCard.setUserInfo(formData);
-            openFormInfo.close();
-        }
->>>>>>> 706fcf060d2c76fde55dcad55a6c1e2ebd17cdf5
 }, form);
 openFormInfo.setEventListeners();
 
@@ -125,7 +98,6 @@ const fullSizePopup = new PopupWithImage(pictureForm);
 fullSizePopup.setEventListeners();
 
 //Функция открытия фото
-<<<<<<< HEAD
 function openImagePopup(card) {
     fullSizePopup.open(card);
 }
@@ -137,11 +109,7 @@ const photoCard = new PopupWithForm({
         photoCard.setLoadingButton();
         api.addNewCard(formData)
         .then((item) => {
-            const card = new Card(item, () => api.putLike(item._id), () => api.deleteLike(item._id), 'card_template', openImagePopup, (item) => {
-                deleteId = item;
-                deleteCardForm.getCardForDelete(card);
-                deleteCardForm.open();
-            });
+            const card = new Card(item, () => api.putLike(item._id), () => api.deleteLike(item._id), 'card_template', openImagePopup, () => deleteCardForm.submit(item._id));
             const cardElement = card.generateCard();
             cardList.setItem(cardElement);
             photoCard.setDefaultButton();
@@ -152,18 +120,6 @@ const photoCard = new PopupWithForm({
         });        
     }
 }, addForm);
-=======
-function openImagePopup(card){
-    fullSizePopup.open(card);
-}
-
-//Попап с добавлением карточек
-const photoCard = new PopupWithForm({formSubmit: (formData)=>{
-    const card = new Card(formData, 'card_template', openImagePopup);
-    const cardElement = card.generateCard();
-    cardList.setItem(cardElement);
-}}, addForm);
->>>>>>> 706fcf060d2c76fde55dcad55a6c1e2ebd17cdf5
 photoCard.setEventListeners();
 
 
@@ -188,7 +144,6 @@ function addPhotoCardHandler() {
 }
 
 
-<<<<<<< HEAD
 // Попап с изменением аватара
 const avatarCard = new PopupWithForm({
     formSubmit: (formData) => {
@@ -215,31 +170,23 @@ function changeAvatarHandler(){
 }
 
 // Попап с подтверждением удаления карточки
-let deleteId;
-const deleteCardForm = new PopupWithForm({
-    formSubmit: (formData) => {
-        api.deleteCard(deleteId._id)        
+const deleteCardForm = new Popup(deleteForm);
+deleteCardForm.submit = function (deleteId) {
+    deleteCardForm.open();
+    deleteForm.addEventListener('submit', evt => {
+        console.log(deleteId);
+        evt.preventDefault();
+        api.deleteCard(deleteId)
         .then(() => {
-            let cardToDelete = deleteCardForm.returnCard();
-            cardToDelete.deleteCard();
+            console.log('Good');
+            document.getElementById(deleteId._id).remove();
         })
         .catch((err) => {
             console.log(err);
         });   
-    }
-}, deleteForm);
-deleteCardForm.setEventListeners();
-=======
-//Добавление начальных карточек
-const cardList = new Section({
-    items: initialCards, renderer: (item) => {
-        const card = new Card(item, 'card_template', openImagePopup);
-        const cardElement = card.generateCard();
-        cardList.setItem(cardElement);
-    }
-}, cardsField);
-cardList.addItem();
->>>>>>> 706fcf060d2c76fde55dcad55a6c1e2ebd17cdf5
+        this.close();
+    });
+};
 
 
 //Валидация
@@ -249,15 +196,9 @@ profileValidator.enableValidation();
 const pictureValidator = new FormValidator(formConfig, addForm);
 pictureValidator.enableValidation();
 
-<<<<<<< HEAD
 const avatarValidator = new FormValidator(formConfig, avatarForm);
 avatarValidator.enableValidation();
 
 editBtn.addEventListener('click', editProfileHandler);
 addBtn.addEventListener('click', addPhotoCardHandler);
 avatarBtn.addEventListener('click', changeAvatarHandler);
-=======
-
-editBtn.addEventListener('click', editProfileHandler);
-addBtn.addEventListener('click', addPhotoCardHandler);
->>>>>>> 706fcf060d2c76fde55dcad55a6c1e2ebd17cdf5
