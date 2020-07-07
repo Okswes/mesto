@@ -25,9 +25,6 @@ import {
     profSubt,
     profAvatar,
     cardsField,
-    placeErrorField,
-    urlErrorField,
-    avatarErrorField,
     formConfig
 } from "../scripts/utils/constants.js";
 
@@ -45,7 +42,25 @@ const api = new Api({
 //Вывод первоначальных карточек
 const cardList = new Section({
     renderer: (item) => {
-        const card = new Card(item, () => api.putLike(item._id), () => api.deleteLike(item._id), 'card_template', openImagePopup, () => deleteCardForm.submit(item._id));
+        const card = new Card(item,
+            () => api.putLike(item._id)
+                .then(() => {
+
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+            ,
+            () => api.deleteLike(item._id)
+                .then(() => {
+
+                })
+                .catch((err) => {
+                    console.log(err);
+                }),
+            'card_template',
+            openImagePopup,
+            () => deleteCardForm.submit(item._id));
         const cardElement = card.generateCard();
         cardList.setItem(cardElement);
     }
@@ -79,15 +94,15 @@ const openFormInfo = new PopupWithForm({
     formSubmit: (formData) => {
         openFormInfo.setLoadingButton();
         api.changeProfileInfo(formData)
-        .then(() => {
-            profileCard.setUserInfo(formData);
-            openFormInfo.setDefaultButton();
-        })
-        .catch((err) => {
-            openFormInfo.setDefaultButton();
-            console.log(err);
-        });        
-        openFormInfo.close();
+            .then(() => {
+                profileCard.setUserInfo(formData);
+                openFormInfo.setDefaultButton();
+                openFormInfo.close();
+            })
+            .catch((err) => {
+                openFormInfo.setDefaultButton();
+                console.log(err);
+            });
     }
 }, form);
 openFormInfo.setEventListeners();
@@ -108,16 +123,36 @@ const photoCard = new PopupWithForm({
     formSubmit: (formData) => {
         photoCard.setLoadingButton();
         api.addNewCard(formData)
-        .then((item) => {
-            const card = new Card(item, () => api.putLike(item._id), () => api.deleteLike(item._id), 'card_template', openImagePopup, () => deleteCardForm.submit(item._id));
-            const cardElement = card.generateCard();
-            cardList.setItem(cardElement);
-            photoCard.setDefaultButton();
-        })
-        .catch((err) => {
-            photoCard.setDefaultButton();
-            console.log(err);
-        });        
+            .then((item) => {
+                const card = new Card(item,
+                    () => api.putLike(item._id)
+                        .then(() => {
+
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        })
+                    ,
+                    () => api.deleteLike(item._id)
+                        .then(() => {
+
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        }),
+                    'card_template',
+                    openImagePopup,
+                    () => deleteCardForm.submit(item._id));
+
+                const cardElement = card.generateCard();
+                cardList.setItem(cardElement);
+                photoCard.setDefaultButton();
+                photoCard.close();
+            })
+            .catch((err) => {
+                photoCard.setDefaultButton();
+                console.log(err);
+            });
     }
 }, addForm);
 photoCard.setEventListeners();
@@ -135,12 +170,8 @@ function editProfileHandler() {
 // Открытие попапа с добавлением карточек
 function addPhotoCardHandler() {
     photoCard.open();
-    placeInput.value = '';
+    placeInput.value = ''; 
     linkInput.value = '';
-    placeErrorField.textContent = placeInput.validationMessage;
-    placeErrorField.classList.toggle('popup__error_active');
-    urlErrorField.textContent = linkInput.validationMessage;
-    urlErrorField.classList.toggle('popup__error_active');
 }
 
 
@@ -149,45 +180,43 @@ const avatarCard = new PopupWithForm({
     formSubmit: (formData) => {
         avatarCard.setLoadingButton();
         api.changeAvatar(formData)
-        .then((item) => {
-            document.querySelector('.profile__avatar').setAttribute('src', item.avatar);
-            avatarCard.setDefaultButton();
-        })
-        .catch((err) => {
-            avatarCard.setDefaultButton();
-            console.log(err);
-        });   
+            .then((item) => {
+                document.querySelector('.profile__avatar').setAttribute('src', item.avatar);
+                avatarCard.setDefaultButton();
+                avatarCard.close();
+            })
+            .catch((err) => {
+                avatarCard.setDefaultButton();
+                console.log(err);
+            });
     }
 }, avatarForm);
 avatarCard.setEventListeners();
 
 // Открытие попапа с изменением аватара
-function changeAvatarHandler(){
+function changeAvatarHandler() {
     avatarCard.open();
-    avatarInput.value='';
-    avatarErrorField.textContent = avatarInput.validationMessage;
-    avatarErrorField.classList.toggle('popup__error_active');
+    avatarInput.value = '';
 }
 
 // Попап с подтверждением удаления карточки
 const deleteCardForm = new Popup(deleteForm);
 deleteCardForm.submit = function (deleteId) {
     deleteCardForm.open();
-    deleteForm.addEventListener('submit', evt => {
-        console.log(deleteId);
+    deleteForm.addEventListener('submit', function listener (evt){
         evt.preventDefault();
         api.deleteCard(deleteId)
-        .then(() => {
-            console.log('Good');
-            document.getElementById(deleteId._id).remove();
-        })
-        .catch((err) => {
-            console.log(err);
-        });   
-        this.close();
+            .then(() => {
+                document.getElementById(deleteId._id).remove();
+                deleteForm.removeEventListener('submit', listener);
+                deleteCardForm.close();
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     });
 };
-
+deleteCardForm.setEventListeners();
 
 //Валидация
 const profileValidator = new FormValidator(formConfig, form);

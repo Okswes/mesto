@@ -9,7 +9,7 @@ export class Card {
         this._deleteLike = deletelike;
         this._cardSelector = selector;
         this._handleCardClick = () => handleCardClick(data);
-        this._handleCardDelete = () => handleCardDelete(data);
+        this._handleCardDelete = () => handleCardDelete();
     }
 
     _getTemplate() {
@@ -24,7 +24,7 @@ export class Card {
     _setEventListeners() {
         this._element.querySelector('.place__like').addEventListener('click', () => { this._likedHandler(); });
         this._element.querySelector('.place__picture').addEventListener('click', () => { this._handleCardClick(); });
-        this._element.querySelector('.place__delete').addEventListener('click', () => { this._handleCardDelete(this._element); });
+        this._element.querySelector('.place__delete').addEventListener('click', () => { this._handleCardDelete(); });
     }
 
     _likedHandler() {

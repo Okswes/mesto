@@ -15,9 +15,6 @@ export const profTitle = document.querySelector('.profile__title');
 export const profSubt = document.querySelector('.profile__subtitle');
 export const profAvatar = document.querySelector('.profile__avatar');
 export const cardsField = document.querySelector('.place-list');
-export const placeErrorField = addForm.querySelector('#place-input-error');
-export const urlErrorField = addForm.querySelector('#url-input-error');
-export const avatarErrorField = avatarForm.querySelector('#avatar-input-error');
 
 
 export const formConfig = {
